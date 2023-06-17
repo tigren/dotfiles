@@ -53,3 +53,10 @@
 (package! treemacs-tab-bar)
 (package! copilot
   :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
+(package! beacon)
+(package! clippy)
+;; (package! minimap)
+
+;; themes
+(package! synthwave-theme
+  :recipe (:host github :repo "TroyFletcher/emacs-synthwave-theme"))

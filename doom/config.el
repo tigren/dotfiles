@@ -32,7 +32,9 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-one)
+;; (setq doom-theme 'synthwave)
+(setq doom-theme 'doom-dracula)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -75,8 +77,19 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; enable mouse
-(xterm-mouse-mode 1)
+(setq doom-font (font-spec :family "Agave" :size 17)
+      doom-variable-pitch-font (font-spec :family "Agave" :size 20)
+      doom-big-font (font-spec :family "Agave" :size 17))
+
+(setq-default line-spacing 10)
+
+;;;; Mouse scrolling in terminal emacs
+(unless (display-graphic-p)
+  ;; activate mouse-based scrolling
+  (xterm-mouse-mode 1)
+  (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
+  (global-set-key (kbd "<mouse-5>") 'scroll-up-line)
+  )
 
 ;; treemacs
 (add-hook 'emacs-startup-hook 'treemacs)
@@ -98,3 +111,19 @@
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+;; transparency on terminal
+(defun on-after-init ()
+  (unless (display-graphic-p (selected-frame))
+    (set-face-background 'default "unspecified-bg" (selected-frame))))
+(add-hook 'window-setup-hook 'on-after-init)
+
+;; transparency on gui
+(set-frame-parameter (selected-frame) 'alpha '(95 75))
+(add-to-list 'default-frame-alist '(alpha 95 75))
+
+(beacon-mode 1)
+
+(when (display-graphic-p)
+  (setq minimap-window-location 'right)
+  (minimap-mode 1))
