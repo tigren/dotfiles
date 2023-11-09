@@ -60,3 +60,6 @@
 ;; themes
 (package! synthwave-theme
   :recipe (:host github :repo "TroyFletcher/emacs-synthwave-theme"))
+(package! lsp-ui)
+(package! lsp-treemacs)
+(package! yasnippet)
