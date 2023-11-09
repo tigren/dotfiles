@@ -34,7 +34,7 @@
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-one)
 ;; (setq doom-theme 'synthwave)
-(setq doom-theme 'doom-dracula)
+(setq doom-theme 'doom-1337)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -77,9 +77,9 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(setq doom-font (font-spec :family "Agave" :size 17)
-      doom-variable-pitch-font (font-spec :family "Agave" :size 20)
-      doom-big-font (font-spec :family "Agave" :size 17))
+(setq doom-font (font-spec :family "BPmono" :size 15)
+      doom-variable-pitch-font (font-spec :family "BPmono" :size 18)
+      doom-big-font (font-spec :family "BPmono" :size 15))
 
 (setq-default line-spacing 10)
 
@@ -127,3 +127,18 @@
 (when (display-graphic-p)
   (setq minimap-window-location 'right)
   (minimap-mode 1))
+
+;; Company mode
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 1)
+
+;; Go - lsp-mode
+;; Set up before-save hooks to format buffer and add/delete imports.
+(defun lsp-go-install-save-hooks ()
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+
+;; Start LSP Mode and YASnippet mode
+(add-hook 'go-mode-hook #'lsp-deferred)
+(add-hook 'go-mode-hook #'yas-minor-mode)
